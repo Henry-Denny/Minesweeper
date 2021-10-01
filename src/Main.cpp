@@ -2,7 +2,7 @@
 
 int main()
 {
-    Game game({1920, 1080}, "Game Template - Hydrogen");
+    Game game({1920, 1080}, "Minesweeper");
     while (!game.IsDone())
     {
         game.ProcessInput();
