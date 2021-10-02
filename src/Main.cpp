@@ -2,7 +2,7 @@
 
 int main()
 {
-    Game game({1920, 1080}, "Minesweeper");
+    Game game({800, 800}, "Minesweeper");
     while (!game.IsDone())
     {
         game.ProcessInput();
