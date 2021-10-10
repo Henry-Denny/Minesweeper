@@ -1,14 +1,14 @@
+#include "Constants.hpp"
 #include "Game.hpp"
 
 int main()
 {
-    Game game({800, 800}, "Minesweeper");
+    using namespace constants;
+    Game game({k_numTiles.x * k_tileSize, (k_numTiles.y * k_tileSize) + k_panelHeight}, "Minesweeper");
     while (!game.IsDone())
     {
         game.ProcessInput();
-        game.Update();
         game.Draw();
-        game.RestartClock();
     }
     return 0;
 }
