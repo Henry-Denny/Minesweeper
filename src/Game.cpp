@@ -29,16 +29,17 @@ void Game::ProcessInput()
                 break;
 
             case (sf::Event::MouseButtonPressed):
-                sf::Vector2i mousePos = sf::Mouse::getPosition(m_window);
-                if (mousePos.x < 0 || mousePos.x >= m_window.getSize().x || mousePos.y < constants::k_panelHeight || mousePos.y >= m_window.getSize().y) { continue; }
-                sf::Vector2u tilePos = GetGridCoord(mousePos);
-                
-                if (!m_tileset.IsMine(tilePos))
                 {
-                    m_tileset.ExploreTile(tilePos);
+                    sf::Vector2i mousePos = sf::Mouse::getPosition(m_window);
+                    if (mousePos.x < 0 || mousePos.x >= m_window.getSize().x || mousePos.y < constants::k_panelHeight || mousePos.y >= m_window.getSize().y) { continue; }
+                    sf::Vector2u tilePos = GetGridCoord(mousePos);
+                    
+                    if (!m_tileset.IsMine(tilePos))
+                    {
+                        m_tileset.ExploreTile(tilePos);
+                    }
+                    else { m_done = true; }
                 }
-                else { m_done = true; }
-
                 break;
 
             default:

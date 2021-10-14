@@ -44,7 +44,7 @@ void Tileset::CreateTiles()
     {
         for (int y = 0; y < constants::k_numTiles.y; ++y)
         {
-            m_tileset[x][y] = new Tile(m_textures.GetTexture("Unexplored"));
+            m_tileset[x][y] = new Tile(m_textures.GetTexture("Default"));
         }
     }
 }
@@ -136,6 +136,7 @@ void Tileset::ExploreTile(sf::Vector2u l_gridCoords)
     }
     else
     {
+        tile->SetTexture(m_textures.GetTexture("Empty"));
         for (int yOff = -1; yOff <= 1; ++yOff)
         {
             for (int xOff = -1; xOff <= 1; ++xOff)

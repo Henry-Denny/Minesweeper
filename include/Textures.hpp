@@ -3,6 +3,9 @@
 
 #include <unordered_map>
 #include <string>
+#include <sstream>
+#include <fstream>
+#include <iostream>
 
 #include <SFML/Graphics.hpp>
 
@@ -16,7 +19,9 @@ public:
     bool LoadFromFile(const std::string &l_pathname);
 
 private:
-    std::unordered_map<std::string, sf::Texture> m_textures;
+    std::unordered_map<std::string, sf::Texture*> m_textures;
+
+    void DestroyTextures();
 };
 
 #endif
