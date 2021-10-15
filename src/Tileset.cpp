@@ -99,8 +99,11 @@ int Tileset::GetNumNearbyMines(sf::Vector2u l_gridCoords)
 
 void Tileset::ExploreTile(sf::Vector2u l_gridCoords)
 {
-    int numNearbyMines = GetNumNearbyMines(l_gridCoords);
     Tile *tile = m_tileset[l_gridCoords.x][l_gridCoords.y];
+    if (!tile->IsHidden()) { return; }
+
+    tile->Reveal();
+    int numNearbyMines = GetNumNearbyMines(l_gridCoords);
     if (numNearbyMines != 0)
     {
         switch (numNearbyMines)
@@ -132,7 +135,6 @@ void Tileset::ExploreTile(sf::Vector2u l_gridCoords)
             default:
                 break;
         }
-        m_tileset[l_gridCoords.x][l_gridCoords.y]->Reveal();
     }
     else
     {
@@ -149,11 +151,13 @@ void Tileset::ExploreTile(sf::Vector2u l_gridCoords)
                     (l_gridCoords.y + yOff) >= constants::k_numTiles.y ||
                     (xOff == 0 && yOff == 0)
                 ) { continue; }
-                // Reveal tile
-                ExploreTile(sf::Vector2u(l_gridCoords.x + xOff, l_gridCoords.y + yOff));
+                if (m_tileset[l_gridCoords.x + xOff][l_gridCoords.y + yOff]->IsHidden())
+                {
+                    ExploreTile(sf::Vector2u(l_gridCoords.x + xOff, l_gridCoords.y + yOff));
+                }
             }
         }
-    }  
+    }
 }
 
 void Tileset::DrawTiles(sf::RenderWindow *l_wind)
@@ -164,10 +168,24 @@ void Tileset::DrawTiles(sf::RenderWindow *l_wind)
     {
         for (int y = 0; y < k_numTiles.y; ++y)
         {
-            rect.setPosition(k_numTiles.x * k_tileSize, k_panelHeight + (k_numTiles.y * k_tileSize));
+            rect.setPosition(x * k_tileSize, k_panelHeight + (y * k_tileSize));
             rect.setTexture(m_tileset[x][y]->GetTexture());
 
             l_wind->draw(rect);
         } 
+    }
+}
+
+void Tileset::ShowAllMines()
+{
+    for (auto &l_column : m_tileset)
+    {
+        for (auto &l_tile : l_column)
+        {
+            if (l_tile->IsMine())
+            {
+                l_tile->Reveal();
+            }
+        }
     }
 }

@@ -19,6 +19,7 @@ public:
     bool IsMine(sf::Vector2u l_gridCoords);
     void ExploreTile(sf::Vector2u l_gridCoords);
     void DrawTiles(sf::RenderWindow *l_wind);
+    void ShowAllMines();
     void ResetMinefield(int l_numMines);
 
 private:
@@ -26,7 +27,7 @@ private:
     void DeleteTiles();
     void CreateTiles();
     void PlantMines(int l_numMines);
-
+    
     std::vector<std::vector<Tile*>> m_tileset;
     Textures m_textures;
 };

@@ -38,9 +38,15 @@ void Game::ProcessInput()
                     {
                         m_tileset.ExploreTile(tilePos);
                     }
-                    else { m_done = true; }
+                    // else { m_done = true; }
                 }
                 break;
+            
+            case (sf::Event::KeyPressed):
+                if (ev.key.code == sf::Keyboard::Space)
+                {
+                    m_tileset.ShowAllMines();
+                }
 
             default:
                 break;
