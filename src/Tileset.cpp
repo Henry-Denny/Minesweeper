@@ -100,7 +100,7 @@ int Tileset::GetNumNearbyMines(sf::Vector2u l_gridCoords)
 void Tileset::ExploreTile(sf::Vector2u l_gridCoords)
 {
     Tile *tile = m_tileset[l_gridCoords.x][l_gridCoords.y];
-    if (!tile->IsHidden()) { return; }
+    if (!tile->IsHidden() || tile->IsFlagged()) { return; }
 
     tile->Reveal();
     int numNearbyMines = GetNumNearbyMines(l_gridCoords);
@@ -160,6 +160,16 @@ void Tileset::ExploreTile(sf::Vector2u l_gridCoords)
     }
 }
 
+void Tileset::FlagTile(sf::Vector2u l_gridCoords)
+{
+    Tile *tile = m_tileset[l_gridCoords.x][l_gridCoords.y];
+    if (tile->IsHidden())
+    {
+        tile->ToggleFlag();
+        tile->SetTexture(tile->IsFlagged() ? m_textures.GetTexture("Flag") : m_textures.GetTexture("Default"));
+    }
+}
+
 void Tileset::DrawTiles(sf::RenderWindow *l_wind)
 {
     using namespace constants;
@@ -184,6 +194,7 @@ void Tileset::ShowAllMines()
         {
             if (l_tile->IsMine())
             {
+                l_tile->SetTexture(m_textures.GetTexture("Mine"));
                 l_tile->Reveal();
             }
         }

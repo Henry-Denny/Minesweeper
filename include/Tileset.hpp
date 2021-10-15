@@ -18,6 +18,7 @@ public:
 
     bool IsMine(sf::Vector2u l_gridCoords);
     void ExploreTile(sf::Vector2u l_gridCoords);
+    void FlagTile(sf::Vector2u l_gridCoords);
     void DrawTiles(sf::RenderWindow *l_wind);
     void ShowAllMines();
     void ResetMinefield(int l_numMines);
