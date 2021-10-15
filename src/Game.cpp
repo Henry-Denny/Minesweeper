@@ -1,8 +1,17 @@
 #include "Game.hpp"
 
 Game::Game(sf::Vector2u l_winSize, const std::string &l_title)
-    : m_done(false), m_winSize(l_winSize), m_tileset("./res/textures.cfg")
+    : m_done(false), m_winSize(l_winSize), m_tileset("./res/textures.cfg"), m_title("Minesweeper", m_font)
 {
+    m_font.loadFromFile("./res/otomanopee.ttf");
+    m_title.setCharacterSize(150);
+
+    sf::FloatRect boundingBox = m_title.getLocalBounds();
+    m_title.setOrigin(sf::Vector2f(boundingBox.left + (boundingBox.width / 2.0f), boundingBox.top + (boundingBox.height / 2.0f)));
+
+    m_title.setPosition({(l_winSize.x / 2.0f), (constants::k_panelHeight / 2.0f)});
+    m_title.setFillColor(sf::Color::Red);
+    
     Setup(l_title);
     Reset();
 }
@@ -74,8 +83,14 @@ void Game::Draw()
     m_window.clear(sf::Color::Black);
 
     m_tileset.DrawTiles(&m_window);
+    DrawUI();
 
     m_window.display();
+}
+
+void Game::DrawUI()
+{
+    m_window.draw(m_title);
 }
 
 sf::Vector2u Game::GetGridCoord(sf::Vector2i l_worldPos)

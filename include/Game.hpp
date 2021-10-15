@@ -16,12 +16,15 @@ public:
 
     void ProcessInput();
     void Draw();
+    void DrawUI();
 
     bool IsDone();
 
 private:
     sf::Vector2u m_winSize;
     sf::RenderWindow m_window;
+    sf::Font m_font;
+    sf::Text m_title;
     Tileset m_tileset;
 
     bool m_done;
