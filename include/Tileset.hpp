@@ -22,6 +22,7 @@ public:
     void DrawTiles(sf::RenderWindow *l_wind);
     void ShowAllMines();
     void ResetMinefield(int l_numMines);
+    bool MinefieldCleared();
 
 private:
     int GetNumNearbyMines(sf::Vector2u l_gridCoords);
@@ -29,6 +30,7 @@ private:
     void CreateTiles();
     void PlantMines(int l_numMines);
     
+    int m_tilesRecovered;
     std::vector<std::vector<Tile*>> m_tileset;
     Textures m_textures;
 };

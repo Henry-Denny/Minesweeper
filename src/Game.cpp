@@ -39,8 +39,16 @@ void Game::ProcessInput()
                         if (!m_tileset.IsMine(tilePos))
                         {
                             m_tileset.ExploreTile(tilePos);
+                            if (m_tileset.MinefieldCleared())
+                            {
+                                // Present win screen
+                                m_done = true;
+                            }
                         }
-                        // else { m_done = true; }
+                        else
+                        {
+                            // Present lose screen
+                        }
                     }
                     else if (ev.mouseButton.button == sf::Mouse::Right)
                     {

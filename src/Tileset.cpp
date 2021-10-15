@@ -13,6 +13,7 @@ Tileset::~Tileset()
 
 void Tileset::ResetMinefield(int l_numMines)
 {
+    m_tilesRecovered = 0;
     DeleteTiles();
     CreateTiles();
     PlantMines(l_numMines);
@@ -103,6 +104,7 @@ void Tileset::ExploreTile(sf::Vector2u l_gridCoords)
     if (!tile->IsHidden() || tile->IsFlagged()) { return; }
 
     tile->Reveal();
+    ++m_tilesRecovered;
     int numNearbyMines = GetNumNearbyMines(l_gridCoords);
     if (numNearbyMines != 0)
     {
@@ -199,4 +201,9 @@ void Tileset::ShowAllMines()
             }
         }
     }
+}
+
+bool Tileset::MinefieldCleared()
+{
+    return m_tilesRecovered >= ((constants::k_numTiles.x * constants::k_numTiles.y) - constants::k_numMines);
 }
