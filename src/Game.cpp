@@ -37,7 +37,7 @@ void Game::ProcessInput()
                 m_done = true;
                 break;
 
-            case (sf::Event::MouseButtonPressed):
+            case (sf::Event::MouseButtonReleased):
                 {
                     sf::Vector2i mousePos = sf::Mouse::getPosition(m_window);
                     if (mousePos.x < 0 || mousePos.x >= m_window.getSize().x || mousePos.y < constants::k_panelHeight || mousePos.y >= m_window.getSize().y) { continue; }
@@ -56,6 +56,7 @@ void Game::ProcessInput()
                         }
                         else
                         {
+                            m_tileset.ShowAllMines();
                             // Present lose screen
                         }
                     }
